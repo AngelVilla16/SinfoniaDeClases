@@ -1,4 +1,15 @@
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+require_once '../../Model/conexion.php';
+$conexion = new Conexion();
+$pdo = $conexion->getConexion();
+$sql = "SELECT id_clase, clase, horario FROM clases";
+$stmt = $pdo->query($sql);
+$clases = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+
+?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -32,18 +43,13 @@
             <input name="nombre" type="text" required>
             <label for="apellido"> Apellido del alumno: </label>
             <input name="apellido" type="text" required>
-          <select id="clase" name="id_clase">
-                <option value="1" >Seleccione una clase</option>
-                <option value="2" >Piano</option>
-                <option value="3">Víolin</option>
-                <option value="4">Guitarra</option>
-            </select>
-            <select id="horario" name="horario">
-                <option value="1">Seleccione un horario</option>
-                <option value="2">Martes a Jueves 5-7 PM</option>
-                <option value="3">Sábados 8AM a 1 PM</option>
-                
-            </select>
+          <select name="id_clase">
+            <?php foreach($clases as $fila): ?>
+                <option value="<?= $fila['id_clase'] ?>">
+                    <?= $fila['clase'] ?> - <?= $fila['horario'] ?>
+                </option>
+            <?php endforeach; ?>
+          </select>
             <button class="enviar" type="submit">Agregar alumno</button>
             <button class="cancelar" type="button" onclick="this.closest('.agregar').classList.remove('active')">Cancelar </button>
         </form>
