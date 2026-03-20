@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -27,16 +29,20 @@
             <label for="nombre">
                 Nombre del alumno:
             </label>
-            <input type="text" required>
-            <select id="clase" name="clase">
-                <option value="piano"> Piano </option>
-                <option value="guitarra">Guitarra</option>
-                <option value="violin">Violin</option>
+            <input name="nombre" type="text" required>
+            <label for="apellido"> Apellido del alumno: </label>
+            <input name="apellido" type="text" required>
+          <select id="clase" name="id_clase">
+                <option value="1" >Seleccione una clase</option>
+                <option value="2" >Piano</option>
+                <option value="3">Víolin</option>
+                <option value="4">Guitarra</option>
             </select>
             <select id="horario" name="horario">
-                <option value="horario1"> Martes-jueves, 5 a 7 pm </option>
-                <option value="horario2">Sábados, 8 am a 1 pm</option>
-
+                <option value="1">Seleccione un horario</option>
+                <option value="2">Martes a Jueves 5-7 PM</option>
+                <option value="3">Sábados 8AM a 1 PM</option>
+                
             </select>
             <button class="enviar" type="submit">Agregar alumno</button>
             <button class="cancelar" type="button" onclick="this.closest('.agregar').classList.remove('active')">Cancelar </button>
