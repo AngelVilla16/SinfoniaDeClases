@@ -2,6 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 require_once '../../Model/conexion.php';
+require_once '../../Model/traeralumno.php';
 $conexion = new Conexion();
 $pdo = $conexion->getConexion();
 $sql = "SELECT id_clase, clase, horario FROM clases";
@@ -30,6 +31,32 @@ $clases = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </div>
 </header>
 <main>
+    <div class="alumnosdgv">
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Grupo</th>
+                    <th>Clase</th>
+                    <th>Horario</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach($alumnos as $fila): ?>
+                    <tr>
+                        <td><?= $fila['id'] ?></td>
+                        <td><?= $fila['nombre'] ?></td>
+                        <td><?= $fila['apellido'] ?></td>
+                        <td><?= $fila['id_clase'] ?></td>
+                        <td><?= $fila['clase'] ?></td>
+                        <td><?= $fila['horario'] ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
     <div class="options">
         <button type="button" class="agregaralumno" onclick="document.querySelector('.agregar').classList.add('active')">
             Registrar alumno
