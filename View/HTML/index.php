@@ -20,11 +20,12 @@ $clases = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta name="keywords" content="HTML, CSS, JAVASCRIPT, UNIVERSITY">
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="icon" type="image/png" href="../images/icon.png" sizes="32x32">
 </head>
 <body>
 <header>
     <div class="image">
-        <img>
+        <img class="icono" src="../images/icon.png" alt="icono">
     </div>
     <div class="content-header">
         <h1>Sinfonia de clases. Armonia en tus grupos</h1>
@@ -61,6 +62,9 @@ $clases = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <button type="button" class="agregaralumno" onclick="document.querySelector('.agregar').classList.add('active')">
             Registrar alumno
         </button>
+        <button type="button" class="eliminaralumno" onclick="document.querySelector('.eliminar').classList.add('active')">
+            Eliminar alumno 
+        </button>
     </div>
     <div class="agregar" onclick="this.classList.remove('active')">
         <form action="../../Model/agregaralumno.php" method="POST" onclick="event.stopPropagation()" class="agregarAlumno">
@@ -79,6 +83,14 @@ $clases = $stmt->fetchAll(PDO::FETCH_ASSOC);
           </select>
             <button class="enviar" type="submit">Agregar alumno</button>
             <button class="cancelar" type="button" onclick="this.closest('.agregar').classList.remove('active')">Cancelar </button>
+        </form>
+    </div>
+    <div class="eliminar" onclick="this.classList.remove('active')">
+        <form action="" method="POST" onclick="event.stopPropagation()" class="eliminarAlumno">
+            <label for="id">Id de alumno que desea eliminar: </label>
+            <input type="text" required name="id">
+            <button class="confirmar" type="submit">Confirmar eliminacion</button>
+            <button class="cancelar" type="button" onclick="this.closest('.eliminar').classList.remove('active')">Cancelar</button>
         </form>
     </div>
 </main>
