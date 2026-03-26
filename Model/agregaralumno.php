@@ -12,21 +12,24 @@ $pdo = $dbconexion->getConexion();
 $service = new AlumnoService();
 
 // Ejecutar
-$resultado = $service->registrarAlumno(
-    $pdo,
-    $_POST['nombre'],
-    $_POST['apellido'],
-    $_POST['id_clase']
-);
+$resultado = $service->registrarAlumno($pdo, $_POST['nombre'], $_POST['apellido'], $_POST['id_clase']);
 
-if ($resultado) {
-    echo "
-    <script>
-    alert ('Alumno registrado');
-    window.location.href = '../View/HTML/index.php';
-    </script>
-    ";
-} else {
-    echo "Error";
+if($resultado === "ok"){
+    echo "<script>
+        alert('Alumno registrado correctamente');
+        window.location.href = '../View/HTML/index.php';
+    </script>";
+}
+elseif($resultado === "Grupo lleno"){
+    echo "<script>
+        alert('No se puede registrar: grupo lleno');
+        window.history.back();
+    </script>";
+}
+else{
+    echo "<script>
+        alert('Error en el sistema');
+        window.history.back();
+    </script>";
 }
 ?>
