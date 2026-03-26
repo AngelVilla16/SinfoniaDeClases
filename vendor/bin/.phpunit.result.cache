@@ -1,1 +1,1 @@
-{"version":2,"defects":{"AlumnoServiceTest::testRegistroExitoso":8},"times":{"AlumnoServiceTest::testRegistroExitoso":0.003}}
+{"version":2,"defects":{"AlumnoServiceTest::testRegistroExitoso":8},"times":{"AlumnoServiceTest::testRegistroExitoso":0.003,"eliminaralumnoTest::testEliminarAlumnoExitoso":0,"eliminaralumnoTest::testEliminarAlumnoNoExiste":0}}

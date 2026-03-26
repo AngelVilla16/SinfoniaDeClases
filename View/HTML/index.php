@@ -4,11 +4,37 @@ ini_set('display_errors', 1);
 require_once '../../Model/conexion.php';
 require_once '../../Model/traeralumno.php';
 $conexion = new Conexion();
+$reporte = $_POST['reporte'] ?? '';
 $pdo = $conexion->getConexion();
-$sql = "SELECT id_clase, clase, horario FROM clases";
-$stmt = $pdo->query($sql);
-$clases = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$sqlBase = "SELECT a.id_alumno as id, a.nombre, a.apellido, c.id_clase, c.clase, c.horario
+            FROM alumnos a
+            JOIN inscripcion i ON a.id_alumno = i.id_alumno
+            JOIN clases c ON i.id_clase = c.id_clase";
+switch ($reporte) {
 
+    case 'grupo':
+        $sql = $sqlBase . " ORDER BY c.id_clase";
+        break;
+
+    case 'turno':
+        $sql = $sqlBase . " ORDER BY c.horario";
+        break;
+
+    case 'nombre':
+        $sql = $sqlBase . " ORDER BY a.nombre ASC";
+        break;
+
+    default:
+        $sql = $sqlBase;
+        break;
+}
+
+$stmt = $pdo->query($sql);
+$alumnos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$sqlclases = "SELECT id_clase,clase, horario FROM clases";
+$stmt2 = $pdo->query($sql);
+
+$clases = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
@@ -32,6 +58,18 @@ $clases = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </div>
 </header>
 <main>
+    <form method="POST">
+    <label>Generar reporte:</label>
+    
+    <select name="reporte">
+        <option value="">-- Selecciona --</option>
+        <option value="grupo">Por grupo</option>
+        <option value="turno">Por turno</option>
+        <option value="nombre">Por nombre</option>
+    </select>
+
+    <button type="submit">Generar</button>
+    </form>
     <div class="alumnosdgv">
         <table>
             <thead>
@@ -86,7 +124,7 @@ $clases = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </form>
     </div>
     <div class="eliminar" onclick="this.classList.remove('active')">
-        <form action="" method="POST" onclick="event.stopPropagation()" class="eliminarAlumno">
+        <form action="../../Model/eliminaralumno.php" method="POST" onclick="event.stopPropagation()" class="eliminarAlumno">
             <label for="id">Id de alumno que desea eliminar: </label>
             <input type="text" required name="id">
             <button class="confirmar" type="submit">Confirmar eliminacion</button>
