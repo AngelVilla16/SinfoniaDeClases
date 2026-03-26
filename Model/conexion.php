@@ -2,7 +2,7 @@
 
 class Conexion{
     private $servidor = "localhost";
-    private $bd = "musica";
+    private $bd = "sinfoniadeclases";
     private $user = "root";
     private $pass = "";
 

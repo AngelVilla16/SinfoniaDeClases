@@ -19,6 +19,10 @@
         ";
     }
     else{
-        echo "error";
+       echo "<script>
+            alert('Alumno eliminado incorrectamente. Id No valido');
+            window.location.href = '../View/HTML/index.php';
+            </script>
+        ";
     }
     ?>

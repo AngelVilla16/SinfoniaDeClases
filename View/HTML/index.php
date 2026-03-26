@@ -32,7 +32,7 @@ switch ($reporte) {
 $stmt = $pdo->query($sql);
 $alumnos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $sqlclases = "SELECT id_clase,clase, horario FROM clases";
-$stmt2 = $pdo->query($sql);
+$stmt2 = $pdo->query($sqlclases);
 
 $clases = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
@@ -58,7 +58,7 @@ $clases = $stmt2->fetchAll(PDO::FETCH_ASSOC);
     </div>
 </header>
 <main>
-    <form method="POST">
+    <form class="form-reporte" method="POST">
     <label>Generar reporte:</label>
     
     <select name="reporte">
@@ -113,9 +113,10 @@ $clases = $stmt2->fetchAll(PDO::FETCH_ASSOC);
             <label for="apellido"> Apellido del alumno: </label>
             <input name="apellido" type="text" required>
           <select name="id_clase">
-            <?php foreach($clases as $fila): ?>
-                <option value="<?= $fila['id_clase'] ?>">
-                    <?= $fila['clase'] ?> - <?= $fila['horario'] ?>
+            <?php var_dump($clases); ?>
+            <?php foreach($clases as $clase): ?>
+                <option value="<?= $clase['id_clase'] ?>">
+                    <?= $clase['clase'] ?> - <?= $clase['horario'] ?>
                 </option>
             <?php endforeach; ?>
           </select>
@@ -126,7 +127,7 @@ $clases = $stmt2->fetchAll(PDO::FETCH_ASSOC);
     <div class="eliminar" onclick="this.classList.remove('active')">
         <form action="../../Model/eliminaralumno.php" method="POST" onclick="event.stopPropagation()" class="eliminarAlumno">
             <label for="id">Id de alumno que desea eliminar: </label>
-            <input type="text" required name="id">
+            <input class="idalumno" type="text" required name="id">
             <button class="confirmar" type="submit">Confirmar eliminacion</button>
             <button class="cancelar" type="button" onclick="this.closest('.eliminar').classList.remove('active')">Cancelar</button>
         </form>
@@ -136,5 +137,6 @@ $clases = $stmt2->fetchAll(PDO::FETCH_ASSOC);
     <p>© Producto de Astrosoft 2026</p>
     <p>Un sistema de: Ámbar Azul Ronquillo Lopez, Itzuri Delgado Gutierrez y José Ángel Villa Ramirez</p>
 </footer>
+<script src="../JS/cerrar.js"> </script>
 </body>
 </html>
