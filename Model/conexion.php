@@ -4,7 +4,7 @@ class Conexion{
     private $servidor = "localhost";
     private $bd = "sinfoniadeclases";
     private $user = "root";
-    private $pass = "";
+    private $pass = "root";
 
     protected $pdo;
 

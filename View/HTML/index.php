@@ -6,7 +6,7 @@ require_once '../../Model/traeralumno.php';
 $conexion = new Conexion();
 $reporte = $_POST['reporte'] ?? '';
 $pdo = $conexion->getConexion();
-$sqlBase = "SELECT a.id_alumno as id, a.nombre, a.apellido, c.id_clase, c.clase, c.horario
+$sqlBase = "SELECT a.id_alumno as id, a.nombre, a.apellido, c.id_clase, c.clase, c.horario, c.estado
             FROM alumnos a
             JOIN inscripcion i ON a.id_alumno = i.id_alumno
             JOIN clases c ON i.id_clase = c.id_clase";
@@ -80,6 +80,7 @@ $clases = $stmt2->fetchAll(PDO::FETCH_ASSOC);
                     <th>Grupo</th>
                     <th>Clase</th>
                     <th>Horario</th>
+                    <th> Estado</th>
                 </tr>
             </thead>
             <tbody>
@@ -91,6 +92,7 @@ $clases = $stmt2->fetchAll(PDO::FETCH_ASSOC);
                         <td><?= $fila['id_clase'] ?></td>
                         <td><?= $fila['clase'] ?></td>
                         <td><?= $fila['horario'] ?></td>
+                        <td><?= $fila['estado'] ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
